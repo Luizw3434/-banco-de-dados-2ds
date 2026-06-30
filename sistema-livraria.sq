@@ -1,0 +1,53 @@
+-- Banco de Dados - SQLite Online
+
+-- ========================================================
+-- 1. Criação das tabelas: Clientes e Compras
+-- ========================================================
+
+-- Tabela Clientes
+CREATE TABLE IF NOT EXISTS Clientes (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    nomeCliente VARCHAR(100) NOT NULL,
+    emailCliente VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Tabela Compras
+CREATE TABLE IF NOT EXISTS Compras (
+    CompraID INTEGER PRIMARY KEY AUTOINCREMENT,
+    ClienteID INTEGER NOT NULL,
+    NomeLivro VARCHAR(100) NOT NULL,
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ID) ON DELETE CASCADE
+);
+
+-- ========================================================
+-- 2. Inserção de dados de exemplo
+-- ========================================================
+
+INSERT INTO Clientes (nomeCliente, emailCliente) VALUES 
+('João Silva', 'joao@email.com'), 
+('Maria Santos', 'maria@email.com'), 
+('Pedro Oliveira', 'pedro@email.com');
+
+INSERT INTO Compras (ClienteID, NomeLivro) VALUES 
+(1, 'Clean Code'), 
+(1, 'Design Patterns'), 
+(2, 'JavaScript: The Good Parts'), 
+(3, 'Python Fluente');
+
+-- ========================================================
+-- 3. Consultas de verificação
+-- ========================================================
+
+SELECT * FROM Clientes;
+SELECT * FROM Compras;
+
+-- Consulta com JOIN para visualizar Clientes e suas Compras
+SELECT 
+    c.ID, 
+    c.nomeCliente, 
+    c.emailCliente, 
+    comp.CompraID, 
+    comp.NomeLivro
+FROM Clientes c 
+LEFT JOIN Compras comp ON c.ID = comp.ClienteID 
+ORDER BY c.ID;
