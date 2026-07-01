@@ -29,3 +29,5 @@ CREATE TABLE Compras (
 -- SELECT c.nomeCliente, c.emailCliente, cp.NomeLivro 
 -- FROM Clientes c 
 -- INNER JOIN Compras cp ON c.ID = cp.ClienteID;
+SELECT * FROM Clientes;  
+SELECT * FROM Compras; 
